@@ -1,4 +1,4 @@
-import sys
+import argparse
 
 from stats import (
     get_num_words,
@@ -6,12 +6,20 @@ from stats import (
     get_chars_dict,
 )
 
+from fetch import interactive_fetch
+
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python3 main.py <path_to_book>")
-        sys.exit(1)
-    book_path = sys.argv[1]
+    parser = argparse.ArgumentParser(description="Analyze text files from local path or Project Gutenberg")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--file", help="Path to the book file to analyze")
+    group.add_argument("--search", action="store_true", help="Search and download a book from Project Gutenberg")
+    args = parser.parse_args()
+
+    if args.search:
+        book_path = interactive_fetch()
+    else:
+        book_path = args.file
     text = get_book_text(book_path)
     num_words = get_num_words(text)
     chars_dict = get_chars_dict(text)
