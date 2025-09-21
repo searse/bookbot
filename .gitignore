@@ -4,5 +4,4 @@ books
 # Python bytecode
 __pycache__/
 
-# cursor rule file
-.cursor
+
