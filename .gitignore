@@ -3,3 +3,6 @@ books
 
 # Python bytecode
 __pycache__/
+
+# vscode - spellchecker and what not
+.vscode
